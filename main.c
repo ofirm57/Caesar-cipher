@@ -115,6 +115,7 @@ int main (int argc, char *argv[])
     if (out_f == NULL) // check the == !!!!!!//
     {
       fprintf (stderr, INVALID_FILE);
+      printf( "here2 \n");
       fclose (read_file);
       return EXIT_FAILURE;
     }
@@ -130,9 +131,9 @@ int main (int argc, char *argv[])
         decode (line, k);
         fputs (line, out_f);
       }
-      fclose (out_f);
-      fclose (read_file);
     }
+    fclose (out_f);
+    fclose (read_file);
   }
   return EXIT_SUCCESS;
 }
