@@ -5,10 +5,10 @@
 
 
 // Macros
-#define BIG_MIN     96
-#define BIG_MAX     123
-#define SMALL_MIN   64
-#define SMALL_MAX   91
+#define BIG_MIN     64
+#define BIG_MAX     91
+#define SMALL_MIN   96
+#define SMALL_MAX   123
 #define NUM_LETTERS 26
 
 
@@ -20,7 +20,7 @@ void change_s (char s[], int k, int min_val, int max_val)
   {
     if(s[i] > min_val && s[i] < max_val)
     {
-      if ( (s[i] + (k % NUM_LETTERS) > max_val))
+      if ( (s[i] + (k % NUM_LETTERS) >= max_val))
       {
         s[i] = s[i] - (NUM_LETTERS - k % NUM_LETTERS);
       }
@@ -41,7 +41,7 @@ void change_s (char s[], int k, int min_val, int max_val)
 // See full documentation in header file
 void encode (char s[], int k)
 {
-  change_s (s, k,  BIG_MIN,  BIG_MAX); //Big letters
+  change_s (s, k,  BIG_MIN,  BIG_MAX); //Big letters BIG_MIN-65 ** BIG_MAX-89
   change_s (s, k,  SMALL_MIN,  SMALL_MAX); // small letters
 }
 // See full documentation in header file
