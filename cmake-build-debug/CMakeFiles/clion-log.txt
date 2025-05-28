@@ -1,0 +1,1 @@
+CMakeLists.txt not found in /Users/wpyrmlkyly/Desktop/ProgramProjects/C_Program/ex1 Select CMakeLists.txt
