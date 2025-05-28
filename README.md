@@ -14,7 +14,7 @@ It includes encryption, decryption, and test cases.
 ## To Do
 - [ ] Improve input handling
 - [ ] Add user interface
-- [ ] More test cases
+- [ ] Do test cases
 
 ---
 
