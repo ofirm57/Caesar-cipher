@@ -2,7 +2,7 @@
 #include "tests.h"
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //for FILE, fopen, fclose, fprintf
 #include <ctype.h>
 
 
@@ -71,14 +71,68 @@ int test_func (int argc, char *argv[])
 
 
 
+int apply_tests ()
+{
+  int num_of_failed_tests = 0;
+  num_of_failed_tests += test_encode_non_cyclic_lower_case_positive_k ();
+  num_of_failed_tests += test_encode_cyclic_lower_case_special_char_positive_k ();
+  num_of_failed_tests += test_encode_non_cyclic_lower_case_special_char_negative_k ();
+  num_of_failed_tests += test_encode_cyclic_lower_case_negative_k ();
+  num_of_failed_tests += test_encode_cyclic_upper_case_positive_k ();
+  num_of_failed_tests += test_decode_non_cyclic_lower_case_positive_k ();
+  num_of_failed_tests += test_decode_cyclic_lower_case_special_char_positive_k ();
+  num_of_failed_tests += test_decode_non_cyclic_lower_case_special_char_negative_k ();
+  num_of_failed_tests += test_decode_cyclic_lower_case_negative_k ();
+  num_of_failed_tests += test_decode_cyclic_upper_case_positive_k ();
+  return num_of_failed_tests;
+}
 
-// your code goes here
+
+
 
 int main (int argc, char *argv[])
 {
   if (test_func (argc, argv) == FAILURE) //make test
-  {
-    return EXIT_FAILURE;
-  }
+    {
+      return EXIT_FAILURE;
+    }
 
+  if (argc == 2 && strcmp (argv[1], "test") == 0)
+    {
+    return apply_tests ();
+    }
+  char line[MAX_OF_CHARS] = {0};
+  int k = strtol (argv[2], NULL, 10); //from str to int
+  if (argc == MAX_VAL_OF_ARGS)
+  {
+    FILE *read_file = fopen (argv[3], "r");
+    if (read_file == NULL) // check the == !!!!!!//
+    {
+      fprintf (stderr, INVALID_FILE);
+      return EXIT_FAILURE;
+    }
+    FILE *out_f = fopen (argv[4], "w");
+    if (out_f == NULL) // check the == !!!!!!//
+    {
+      fprintf (stderr, INVALID_FILE);
+      fclose (read_file);
+      return EXIT_FAILURE;
+    }
+    while (fgets (line, MAX_OF_CHARS, read_file) != NULL)
+    {
+      if (strcmp (argv[1], COMMAND_ENCODE) == 0) // if encode
+      {
+        encode (line, k);
+        fputs (line, out_f);
+      }
+      if (strcmp (argv[1], COMMAND_DECODE) == 0)
+      {
+        decode (line, k);
+        fputs (line, out_f);
+      }
+      fclose (out_f);
+      fclose (read_file);
+    }
+  }
+  return EXIT_SUCCESS;
 }
